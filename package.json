@@ -1,6 +1,6 @@
 {
   "name": "@varlabs/monorun",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A monorepo build system for JavaScript and TypeScript projects.",
   "author": "HamzaKV <hamzakv333@gmail.com>",
   "repository": "https://github.com/HamzaKV/monorun.git",
@@ -41,8 +41,7 @@
     "tsx": "^4.19.4",
     "typescript": "^5.0.0"
   },
-  "peerDependencies": {
-  },
+  "peerDependencies": {},
   "dependencies": {
     "@dagrejs/graphlib": "^2.2.4",
     "better-sqlite3": "^11.10.0",
