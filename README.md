@@ -8,7 +8,7 @@
 - 🔍 **Advanced Filtering** – Use name filters, git-diff filters (`[main...]`, `[HEAD^1]`), and custom logic to scope execution.
 - 📦 **Script Expansion** – Dependency-aware `dependsOn` for tasks (supports `^script`, `package#script`, and local `script` references).
 - ⚙️ **Task Configuration** – Central `monorun.config.ts` for custom task definitions.
-- 🪝 **Hooks & Caching** – Cache task results locally with SQLite. Remote hash support planned.
+- 🪝 **Hooks & Caching** – Cache task results locally with SQLite. Use hooks in the config file to handle remote caching.
 - 🐳 **Prune for Docker** – Output a production-ready pruned repo with optional `json/` + `full/` structure.
 - 🧪 **Dry Run Support** – Visualize what would run without side effects.
 - 🧩 **Custom Output Formats** – JSON, YAML, XML, TOML support for outputs like `ls`.
@@ -78,6 +78,12 @@ export default defineConfig({
       dependsOn: ['build'],
     },
   },
+  hooks: {
+    cache: { // Optional hooks for custom cache management
+      read: (hash: string) => CacheRow;
+      write: (hash: string, ctx: TaskContext) => void;
+    }
+  }
 });
 ```
 

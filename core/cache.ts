@@ -10,7 +10,8 @@ const Database = await crossImport({
     bun: 'bun:sqlite',
     node: 'better-sqlite3',
 });
-const db = new Database('cache.sqlite');
+const sqliteFilePath = path.join(import.meta.dirname, '../cache.sqlite');
+const db = new Database(sqliteFilePath);
 
 db.exec('CREATE TABLE IF NOT EXISTS cache (hash TEXT PRIMARY KEY,package TEXT NOT NULL,script TEXT NOT NULL,timestamp INTEGER NOT NULL,status TEXT NOT NULL);');
 
