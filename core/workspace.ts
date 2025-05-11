@@ -1,6 +1,6 @@
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { fileExists } from '../utils/file-exists';
+import { fileExists } from '../utils/file-exists.js';
 import fg from 'fast-glob';
 import type { Config } from '../types/config.type';
 import micromatch from 'micromatch';

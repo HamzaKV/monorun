@@ -1,10 +1,10 @@
-import { type WorkspacePackage, type PackageManager, detectPackageManager } from './workspace';
-import { Graph } from 'graphlib';
+import { type WorkspacePackage, type PackageManager, detectPackageManager } from './workspace.js';
+import { Graph } from '@dagrejs/graphlib';
 import type { Config, ConfigHooks } from '../types/config.type';
-import { getRoots } from './graph';
-import { buildDependencyGraph } from './graph';
-import { generateHash, writeCache, readCache } from './cache';
-import { runScript as spawn } from '../utils/run-script';
+import { getRoots } from './graph.js';
+import { buildDependencyGraph } from './graph.js';
+import { generateHash, writeCache, readCache } from './cache.js';
+import { runScript as spawn } from '../utils/run-script.js';
 import { readFile } from 'node:fs/promises';
 
 type RunOptions = {

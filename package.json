@@ -1,25 +1,29 @@
 {
-  "name": "monorun",
-  "version": "0.0.1",
+  "name": "@varlabs/monorun",
+  "version": "0.1.0",
   "description": "A monorepo build system for JavaScript and TypeScript projects.",
   "author": "HamzaKV <hamzakv333@gmail.com>",
   "license": "MIT",
-  "main": "./bin/main",
   "bin": {
     "monorun": "./bin/main.js"
   },
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "clean": "rimraf ./dist",
-    "copy-files": "copyfiles package.json ./dist",
+    "copy-files:notes": "copyfiles -u 1 constants/notes/*.md ./dist/constants/",
+    "copy-files:root": "copyfiles -u 0 README.md package.json LICENSE ./dist",
     "dev": "tsx --no-cache ./bin/main",
     "start": "node ./dist/bin/main.js",
-    "build": "bun run clean && tsc && bun run copy-files"
+    "build": "bun run clean && tsc && bun run copy-files:notes && bun run copy-files:root",
+    "test:local": "bun run build && cd ./dist && pnpm link"
   },
   "type": "module",
   "devDependencies": {
     "@types/better-sqlite3": "^7.6.13",
-    "@types/graphlib": "^2.1.12",
     "@types/js-yaml": "^4.0.9",
+    "@types/marked-terminal": "^6.1.1",
     "@types/micromatch": "^4.0.9",
     "@types/node": "^22.15.17",
     "copyfiles": "^2.4.1",
@@ -30,18 +34,25 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@dagrejs/graphlib": "^2.2.4",
     "better-sqlite3": "^11.10.0",
-    "chalk": "^5.4.1",
-    "commander": "^13.1.0",
     "fast-glob": "^3.3.3",
-    "graphlib": "^2.1.8",
     "js-yaml": "^4.1.0",
+    "marked": "^15.0.11",
+    "marked-terminal": "^7.3.0",
     "micromatch": "^4.0.8",
-    "minimatch": "^10.0.1",
-    "ora": "^8.2.0"
+    "minimatch": "^10.0.1"
   },
-  "keywords": ["monorepo", "task runner", "build", "monorun"],
+  "keywords": [
+    "monorepo",
+    "task runner",
+    "build",
+    "monorun"
+  ],
   "engines": {
-    "node": ">=16"
+    "node": ">=20"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

@@ -1,6 +1,6 @@
-import * as graphlib from 'graphlib';
-import type { WorkspacePackage } from './workspace';
-import { resolveFilter, type FilterMode } from './resolve-filter';
+import type { WorkspacePackage } from './workspace.js';
+import { resolveFilter, type FilterMode } from './resolve-filter.js';
+import { Graph, default as graphlib } from '@dagrejs/graphlib';
 
 export const buildDependencyGraph = (
     packages: Map<string, WorkspacePackage>,
@@ -10,7 +10,7 @@ export const buildDependencyGraph = (
         filterMode?: FilterMode;
     }
 ) => {
-    const graph = new graphlib.Graph({ directed: true });
+    const graph = new Graph({ directed: true });
 
     for (const [name] of packages) {
         graph.setNode(name, { name });
@@ -51,7 +51,7 @@ export const buildDependencyGraph = (
     return graph;
 };
 
-export const getTopologicalSort = (graph: graphlib.Graph) => {
+export const getTopologicalSort = (graph: Graph) => {
     if (!graph.isDirected()) {
         throw new Error('Graph must be directed for topological sort.');
     }
@@ -63,7 +63,7 @@ export const getTopologicalSort = (graph: graphlib.Graph) => {
     return graphlib.alg.topsort(graph);
 };
 
-export const printGraph = (graph: graphlib.Graph) => {
+export const printGraph = (graph: Graph) => {
     console.log('Graph:');
     graph.nodes().forEach((node) => {
         const edges = graph.outEdges(node);
@@ -71,7 +71,7 @@ export const printGraph = (graph: graphlib.Graph) => {
     });
 };
 
-export const getRoots = (graph: graphlib.Graph) => {
+export const getRoots = (graph: Graph) => {
     if (!graphlib.alg.isAcyclic(graph)) {
         console.warn("Graph contains cycles, may not have a clear root node");
     }
@@ -87,7 +87,7 @@ export const getRoots = (graph: graphlib.Graph) => {
     return rootNodes;
 };
 
-export const toDotFormat = (graph: graphlib.Graph) => {
+export const toDotFormat = (graph: Graph) => {
     let dot = 'digraph G {\n';
     graph.nodes().forEach((node) => {
         dot += `  "${node}" [label="${node}"];\n`;

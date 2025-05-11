@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { minimatch } from 'minimatch';
-import type { WorkspacePackage } from './workspace';
-import { Graph } from 'graphlib';
+import type { WorkspacePackage } from './workspace.js';
+import { Graph } from '@dagrejs/graphlib';
 import { join } from 'node:path';
 
 const gitRangeRegex = /^\[([^\]]+)\]$/;

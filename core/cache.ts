@@ -2,9 +2,9 @@ import { createHash } from 'node:crypto';
 import type { WorkspacePackage } from './workspace';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import { fileExists } from '../utils/file-exists';
-import { runExec } from '../utils/run-script';
-import { crossImport } from '../utils/cross-import';
+import { fileExists } from '../utils/file-exists.js';
+import { runExec } from '../utils/run-script.js';
+import { crossImport } from '../utils/cross-import.js';
 
 const Database = await crossImport({
     bun: 'bun:sqlite',

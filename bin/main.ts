@@ -10,21 +10,26 @@ import {
     isFile, 
     shouldIgnore,
     isDirectory,
-} from '../core/workspace';
-import type { PackageManager } from '../core/workspace';
-import { buildDependencyGraph, toDotFormat } from '../core/graph';
-import { runScript, runTask } from '../core/runner';
+} from '../core/workspace.js';
+import type { PackageManager } from '../core/workspace.js';
+import { buildDependencyGraph, toDotFormat } from '../core/graph.js';
+import { runScript, runTask } from '../core/runner.js';
 import { parseArgs } from 'node:util';
-import type { Command } from '../types/strings.type';
-import { commands } from '../constants/strings';
-import type { FilterMode } from '../core/resolve-filter';
+import type { Command } from '../types/strings.type.js';
+import { commands } from '../constants/strings.js';
+import type { FilterMode } from '../core/resolve-filter.js';
 import path from 'node:path';
 import { cp, readdir, rmdir, readFile, mkdir } from 'fs/promises';
-import { objectToXml, objectToToml, objectToYaml } from '../utils/formats';
+import { objectToXml, objectToToml, objectToYaml } from '../utils/formats.js';
+import { help } from '../core/help.js';
 
 const { values, positionals } = parseArgs({
     args: process.argv.slice(2),
     options: {
+        version: {
+            type: 'boolean',
+            short: 'v',
+        },
         concurrency: {
             type: 'string',
             short: 'c',
@@ -76,6 +81,10 @@ const { values, positionals } = parseArgs({
             type: 'string',
             short: 'o',
         },
+        help: {
+            type: 'boolean',
+            short: 'h',
+        },
     },
     strict: true,
     allowPositionals: true,
@@ -84,12 +93,29 @@ const { values, positionals } = parseArgs({
 let command: Command | undefined = undefined;
 if (positionals[0] && commands.includes(positionals[0] as Command)) {
     command = positionals[0] as Command;
+    if (values.help) {
+        await help(command);
+        process.exit(0);
+    }
+}
+
+if (values.help) {
+    await help();
+    process.exit(0);
 }
 
 const root = await getWorkspaceRoot();
 if (!root) {
     console.error('No workspace root found.');
     process.exit(1);
+}
+
+if (values.version) {
+    const packageJsonPath = path.join(import.meta.dirname, '../package.json');
+    const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf-8'));
+    const version = packageJson.version;
+    console.log(`Version: ${version}`);
+    process.exit(0);
 }
 
 const packages = await loadWorkspaces(root);
