@@ -9,7 +9,7 @@
     "monorun": "./bin/main.js"
   },
   "exports": {
-    ".": "./dist/index.js"
+    ".": "./index.js"
   },
   "scripts": {
     "clean": "rimraf ./dist",
