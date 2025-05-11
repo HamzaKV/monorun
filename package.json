@@ -1,8 +1,9 @@
 {
   "name": "@varlabs/monorun",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A monorepo build system for JavaScript and TypeScript projects.",
   "author": "HamzaKV <hamzakv333@gmail.com>",
+  "repository": "https://github.com/HamzaKV/monorun.git",
   "license": "MIT",
   "bin": {
     "monorun": "./bin/main.js"
@@ -28,10 +29,10 @@
     "@types/node": "^22.15.17",
     "copyfiles": "^2.4.1",
     "rimraf": "^6.0.1",
-    "tsx": "^4.19.4"
+    "tsx": "^4.19.4",
+    "typescript": "^5.0.0"
   },
   "peerDependencies": {
-    "typescript": "^5.0.0"
   },
   "dependencies": {
     "@dagrejs/graphlib": "^2.2.4",
