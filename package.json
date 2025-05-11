@@ -24,7 +24,7 @@
     "patch": "bun run git:main && npm version patch && bun run git:push:main",
     "minor": "bun run git:main && npm version minor && bun run git:push:main",
     "major": "bun run git:main && npm version major && bun run git:push:main",
-    "roll": "bun run build && cd dist && bun run publish",
+    "roll": "bun run build && cd dist && npm publish",
     "roll:patch": "bun run patch && bun run roll",
     "roll:minor": "bun run minor && bun run roll",
     "roll:major": "bun run major && bun run roll"
