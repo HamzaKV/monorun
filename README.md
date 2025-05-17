@@ -63,9 +63,9 @@ Monorun supports a configuration file named `monorun.config.ts` or `monorun.conf
 ### Example (`monorun.config.ts`)
 
 ```ts
-import { defineConfig } from '@varlabs/monorun';
+import { buildConfig } from '@varlabs/monorun';
 
-export default defineConfig({
+export default buildConfig({
   tasks: {
     build: {
       dependsOn: ['^build', 'utils#test', 'lint'], // Run build on all dependencies first, test from utils package, and lint current package
